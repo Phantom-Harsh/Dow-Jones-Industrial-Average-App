@@ -31,12 +31,10 @@ selected_sector = st.sidebar.multiselect(
 # Filtering data
 df_selected_sector = df[(df['Industry'].isin(selected_sector))]
 
-st.header('Display Companies in Selected Sector')
-st.write('Data Dimension: ' + str(df_selected_sector.shape[0]) + ' rows and ' + str(
+st.header('Displaying Companies in Selected Sectors/Industries')
+st.write('Data Dimension : ' + str(df_selected_sector.shape[0]) + ' rows and ' + str(
     df_selected_sector.shape[1]) + ' columns.')
 st.dataframe(df_selected_sector)
-
-# len(sorted_sector_unique)
 
 data = yf.download(
     # tickers = list(df.Symbol),
