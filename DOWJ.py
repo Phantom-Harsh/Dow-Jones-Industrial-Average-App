@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 import yfinance as yf
-st.title('Dow Jones Industrial App')
+st.title('Dow Jones Industrial Average EDA')
 
 st.markdown("""
             
