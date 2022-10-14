@@ -1,20 +1,18 @@
-
 import streamlit as st
 import pandas as pd
-import base64
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 import yfinance as yf
 st.title('Dow Jones Industrial App')
 
-
 st.markdown("""
+            
 Welcome
+
 """)
 
 st.sidebar.header('User Input Features')
-
 
 @st.cache
 def load_data():
@@ -23,9 +21,7 @@ def load_data():
     df = html[1]
     return df
 
-
 df = load_data()
-
 sector = df.groupby('Industry')
 
 sorted_sector_unique = sorted(df['Industry'].unique())
@@ -39,16 +35,6 @@ st.header('Display Companies in Selected Sector')
 st.write('Data Dimension: ' + str(df_selected_sector.shape[0]) + ' rows and ' + str(
     df_selected_sector.shape[1]) + ' columns.')
 st.dataframe(df_selected_sector)
-
-# def filedownload(df):
-#     csv = df.to_csv(index=False)
-#     b64 = base64.b64encode(csv.encode()).decode()  # strings <-> bytes conversions
-#     href = f'<a href="data:file/csv;base64,{b64}" download="SP500.csv">Download CSV File</a>'
-#     return href
-
-# st.markdown(filedownload(df_selected_sector), unsafe_allow_html=True)
-
-
 
 # len(sorted_sector_unique)
 
@@ -64,24 +50,23 @@ data = yf.download(
     proxy=None
 )
 
-
 # # def price_plot(symbol):
 # df = pd.DataFrame(data['AAPL'].Close)
 # df['Date'] = df.index
 st.set_option('deprecation.showPyplotGlobalUse', False)
+
 def price_plot(symbol):
     df = pd.DataFrame(data[symbol].Close)
-    df['Date'] = df.index    
-    plt.fill_between(df.Date, df.Close, color='darkgreen', alpha=0.3)
-    plt.plot(df.Date, df.Close, color='blue', alpha=0.8)
+    df['Date'] = df.index
+    plt.fill_between(df.Date, df.Close, color='green', alpha=0.3)
+    plt.plot(df.Date, df.Close, color='red', alpha=0.8)
     plt.xticks(rotation=90)
     plt.title(symbol, fontweight='bold')
     plt.xlabel('Date', fontweight='bold')
     plt.ylabel('Closing Price', fontweight='bold')
     return st.pyplot()
 
-
-num_company = st.sidebar.slider('Number of Companies', 1, 5)
+num_company = st.sidebar.slider('Number of Companies', 1, 30)
 
 if st.button('Show Plots'):
     st.header('Stock Closing Price')
